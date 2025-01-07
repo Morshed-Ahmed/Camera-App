@@ -1,118 +1,315 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+// CAMERA APP
+
+// import {
+//   View,
+//   Text,
+//   ActivityIndicator,
+//   StyleSheet,
+//   TouchableOpacity,
+//   Image,
+// } from 'react-native';
+// import React, {useEffect, useRef, useState} from 'react';
+// import {Camera, useCameraDevice} from 'react-native-vision-camera';
+
+// export default function App() {
+//   const [imageData, setImageData] = useState('');
+//   const [takePhotoClicked, setTakePhotoClicked] = useState(false);
+
+//   const device = useCameraDevice('back');
+//   const camera = useRef(null);
+
+//   useEffect(() => {
+//     checkPermission();
+//   }, []);
+//   const checkPermission = async () => {
+//     const cameraPermission = Camera.getCameraPermissionStatus();
+//     const microphonePermission = Camera.getMicrophonePermissionStatus();
+//     console.log(cameraPermission);
+//   };
+
+//   if (device == null) return <ActivityIndicator />;
+
+//   const takePicture = async () => {
+//     if (camera != null) {
+//       const photo = await camera.current.takePhoto();
+//       setImageData(photo.path);
+//       setTakePhotoClicked(false);
+//       console.log(photo.path);
+//     }
+//   };
+//   return (
+//     <View style={{flex: 1, backgroundColor: 'white'}}>
+//       {takePhotoClicked ? (
+//         <View style={{flex: 1}}>
+//           <Camera
+//             ref={camera}
+//             style={StyleSheet.absoluteFill}
+//             device={device}
+//             isActive={true}
+//             photo
+//           />
+//           <TouchableOpacity
+//             onPress={() => takePicture()}
+//             style={{
+//               width: 60,
+//               height: 60,
+//               borderRadius: 30,
+//               backgroundColor: 'red',
+//               position: 'absolute',
+//               bottom: 50,
+//               alignSelf: 'center',
+//             }}></TouchableOpacity>
+//         </View>
+//       ) : (
+//         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+//           {imageData !== '' && (
+//             <Image
+//               source={{uri: 'file://' + imageData}}
+//               style={{width: '90%', height: 200, resizeMode: 'contain'}}
+//             />
+//           )}
+//           <TouchableOpacity
+//             onPress={() => setTakePhotoClicked(true)}
+//             style={{
+//               width: '90%',
+//               height: 50,
+//               borderWidth: 1,
+//               alignSelf: 'center',
+//               borderRadius: 10,
+//               justifyContent: 'center',
+//               alignItems: 'center',
+//             }}>
+//             <Text>Click Photo</Text>
+//           </TouchableOpacity>
+//         </View>
+//       )}
+//     </View>
+//   );
+// }
+
+// import {
+//   View,
+//   Text,
+//   ActivityIndicator,
+//   StyleSheet,
+//   Dimensions,
+// } from 'react-native';
+// import React, {useEffect} from 'react';
+// import {
+//   Camera,
+//   useCameraDevice,
+//   useCodeScanner,
+// } from 'react-native-vision-camera';
+// const {width, height} = Dimensions.get('window');
+// export default function App() {
+//   const device = useCameraDevice('back');
+//   useEffect(() => {
+//     checkPermission();
+//   }, []);
+//   const checkPermission = async () => {
+//     const cameraPermission = Camera.getCameraPermissionStatus();
+//     const microphonePermission = Camera.getMicrophonePermissionStatus();
+//     console.log(cameraPermission);
+//   };
+
+//   if (device == null) return <ActivityIndicator />;
+
+//   const codeScanner = useCodeScanner({
+//     codeTypes: ['qr', 'ean-13'],
+//     // onCodeScanned: codes => {
+//     //   console.log(`Scanned ${codes} codes!`);
+//     // },
+//     onCodeScanned: codes => {
+//       for (const code of codes) {
+//         console.log(code.value);
+//       }
+//     },
+//   });
+//   return (
+//     <View style={{flex: 1, backgroundColor: 'white'}}>
+//       <Camera
+//         style={StyleSheet.absoluteFill}
+//         device={device}
+//         isActive={true}
+//         photo
+//         codeScanner={codeScanner}
+//       />
+
+//       <View style={styles.overlay}>
+//         <View style={styles.scannerFrame}>
+//           <Text style={styles.scannerText}>Align QR Code within the frame</Text>
+//         </View>
+//       </View>
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   overlay: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   scannerFrame: {
+//     width: width * 0.8,
+//     height: width * 0.8,
+//     borderWidth: 2,
+//     borderColor: 'green',
+//     borderRadius: 10,
+//     backgroundColor: 'rgba(0, 0, 0, 0.3)',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   scannerText: {
+//     color: 'white',
+//     fontSize: 16,
+//     fontWeight: 'bold',
+//     position: 'absolute',
+//     bottom: -30,
+//   },
+// });
+
+// QR SCRENNER
+// import {
+//   View,
+//   Text,
+//   ActivityIndicator,
+//   StyleSheet,
+//   Dimensions,
+//   Linking,
+//   Alert,
+// } from 'react-native';
+// import React, {useEffect} from 'react';
+// import {
+//   Camera,
+//   useCameraDevice,
+//   useCodeScanner,
+// } from 'react-native-vision-camera';
+
+// const {width, height} = Dimensions.get('window');
+
+// export default function App() {
+//   const device = useCameraDevice('back');
+
+//   useEffect(() => {
+//     checkPermission();
+//   }, []);
+
+//   const checkPermission = async () => {
+//     const cameraPermission = await Camera.requestCameraPermission();
+//     const microphonePermission = await Camera.requestMicrophonePermission();
+//     console.log('Camera Permission:', cameraPermission);
+//     console.log('Microphone Permission:', microphonePermission);
+//   };
+
+//   if (device == null) return <ActivityIndicator />;
+
+//   const handleCodeScanned = codes => {
+//     for (const code of codes) {
+//       console.log('Scanned Code:', code.value);
+//       openScannedURL(code.value);
+//     }
+//   };
+
+//   const openScannedURL = url => {
+//     if (url.startsWith('http') || url.startsWith('https')) {
+//       Linking.openURL(url).catch(err =>
+//         Alert.alert('Error', 'Failed to open the URL: ' + err),
+//       );
+//     } else {
+//       Alert.alert('Scanned Data', url);
+//     }
+//   };
+
+//   const codeScanner = useCodeScanner({
+//     codeTypes: ['qr', 'ean-13'],
+//     onCodeScanned: handleCodeScanned,
+//   });
+
+//   return (
+//     <View style={{flex: 1, backgroundColor: 'white'}}>
+//       <Camera
+//         style={StyleSheet.absoluteFill}
+//         device={device}
+//         isActive={true}
+//         photo
+//         codeScanner={codeScanner}
+//       />
+
+//       <View style={styles.overlay}>
+//         <View style={styles.scannerFrame}>
+//           <Text style={styles.scannerText}>Align QR Code within the frame</Text>
+//         </View>
+//       </View>
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   overlay: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   scannerFrame: {
+//     width: width * 0.8,
+//     height: width * 0.8,
+//     borderWidth: 2,
+//     borderColor: 'green',
+//     borderRadius: 10,
+//     backgroundColor: 'rgba(0, 0, 0, 0.3)',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   scannerText: {
+//     color: 'white',
+//     fontSize: 16,
+//     fontWeight: 'bold',
+//     position: 'absolute',
+//     bottom: -30,
+//   },
+// });
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import HomeScreen from './src/screen/HomeScreen';
+import CameraScreen from './src/screen/CameraScreen';
+import QrScannerScreen from './src/screen/QrScannerScreen';
+import PhotoGalleryScreen from './src/screen/PhotoGalleryScreen';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Stack = createNativeStackNavigator();
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function RootStack() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="Home"
+        component={HomeScreen}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="Camera"
+        component={CameraScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="QrScanner"
+        component={QrScannerScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="PhotoGallery"
+        component={PhotoGalleryScreen}
+      />
+    </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+export default function App() {
+  return (
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
+  );
+}
