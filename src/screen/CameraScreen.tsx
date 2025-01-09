@@ -220,7 +220,8 @@ import {
   Alert,
 } from 'react-native';
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
-import CameraRoll, {useCameraRoll} from '@react-native-camera-roll/camera-roll';
+import {useCameraRoll} from '@react-native-camera-roll/camera-roll';
+import {Image as CompressorImage} from 'react-native-compressor';
 
 const {width, height} = Dimensions.get('window');
 
@@ -284,11 +285,25 @@ export default function CameraScreen() {
 
   if (!device) return <ActivityIndicator />;
 
+  const compressImageAutomatically = async imagePath => {
+    try {
+      const compressedImage = await CompressorImage.compress(imagePath);
+      console.log('Compressed Image Path:', compressedImage);
+      return compressedImage;
+    } catch (error) {
+      console.error('Error in automatic compression:', error);
+    }
+  };
+
   const takePicture = async () => {
     if (camera.current) {
       try {
         const photo = await camera.current.takePhoto();
-        setImageData(photo.path);
+        const compressedImagePath = await compressImageAutomatically(
+          photo.path,
+        );
+        setImageData(compressedImagePath);
+        console.log(compressedImagePath);
       } catch (error) {
         console.log('Error taking photo:', error);
       }
