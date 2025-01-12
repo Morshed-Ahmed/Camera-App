@@ -277,6 +277,7 @@ import HomeScreen from './src/screen/HomeScreen';
 import CameraScreen from './src/screen/CameraScreen';
 import QrScannerScreen from './src/screen/QrScannerScreen';
 import PhotoGalleryScreen from './src/screen/PhotoGalleryScreen';
+import VoiceRecordScreen from './src/screen/VoiceRecordScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -302,6 +303,11 @@ function RootStack() {
         options={{headerShown: false}}
         name="PhotoGallery"
         component={PhotoGalleryScreen}
+      />
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="VoiceRecord"
+        component={VoiceRecordScreen}
       />
     </Stack.Navigator>
   );

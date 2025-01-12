@@ -26,6 +26,11 @@ export default function Header() {
         style={styles.linkButton}>
         <Text style={styles.linkButtonText}>Qr Code Scanner</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('VoiceRecord')}
+        style={styles.linkButton}>
+        <Text style={styles.linkButtonText}>Voice Recording</Text>
+      </TouchableOpacity>
     </View>
   );
 }
